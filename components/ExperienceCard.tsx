@@ -1,50 +1,40 @@
-// ExperienceCard.tsx — a single experience card.
-// Takes props for one experience and renders it. We'll reuse this in a grid.
+import Image from "next/image";
 
-import Link from "next/link";
-
-// The shape of one experience's data. Later, this same shape comes from the DB.
 type ExperienceCardProps = {
-  number: string;   // e.g. "001"
-  title: string;    // e.g. "Olumo Rock"
-  vibe: string;     // e.g. "ADVENTURE · DAY"
+  number: string;
+  title: string;
+  sub: string;
+  vibe: string;
   description: string;
-  slug: string;     // used for the link, e.g. "olumo-rock"
+  image?: string; // optional now — the "?" means it may be missing
 };
 
 export default function ExperienceCard({
-  number,
-  title,
-  vibe,
-  description,
-  slug,
+  number, title, sub, vibe, description, image,
 }: ExperienceCardProps) {
   return (
-    // group lets child elements react when you hover the whole card.
-    // border + hover:border-amber = subtle amber highlight on hover.
-    <Link
-      href={`/experiences/${slug}`}
-      className="group flex flex-col border border-rule p-8 transition-colors hover:border-amber"
-    >
-      {/* Big faint number, top of the card */}
-      <span className="font-display text-5xl text-rule transition-colors group-hover:text-amber">
-        {number}
-      </span>
+    <div className="flex-shrink-0 overflow-hidden bg-[#0D0D0D]" style={{ width: "clamp(260px,26vw,340px)" }}>
+      {/* Image area with scrim — only render <Image> if we actually have one */}
+      <div className="relative" style={{ height: "clamp(200px,22vw,280px)" }}>
+        {image ? (
+          <Image src={image} alt={title} fill className="object-cover" />
+        ) : (
+          // graceful fallback: a dark panel if no image is supplied
+          <div className="absolute inset-0 bg-[#141414]" />
+        )}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: "linear-gradient(to top,rgba(10,10,10,.85) 0%,rgba(10,10,10,.1) 55%,transparent 100%)" }}
+        />
+      </div>
 
-      {/* The vibe tag */}
-      <span className="mt-6 font-mono text-[10px] tracking-[0.2em] text-amber">
-        {vibe}
-      </span>
-
-      {/* The title */}
-      <h3 className="mt-2 font-display text-3xl tracking-wide text-cream">
-        {title}
-      </h3>
-
-      {/* The description */}
-      <p className="mt-3 font-body text-base leading-relaxed text-grey">
-        {description}
-      </p>
-    </Link>
+      <div style={{ padding: "18px" }}>
+        <p className="mb-[6px] font-mono text-[0.44rem] uppercase tracking-[0.2em] text-amber">{number}</p>
+        <h3 className="mb-[6px] font-display uppercase tracking-[0.04em] text-cream" style={{ fontSize: "clamp(1rem,1.6vw,1.3rem)" }}>{title}</h3>
+        <p className="mb-2 font-mono text-[0.42rem] uppercase tracking-[0.15em] text-acid">{sub}</p>
+        <p className="font-body text-[0.8rem] leading-[1.55] text-grey">{description}</p>
+        <p className="mt-[10px] inline-flex items-center gap-[7px] font-mono text-[0.42rem] uppercase tracking-[0.14em] text-grey">{vibe}</p>
+      </div>
+    </div>
   );
 }

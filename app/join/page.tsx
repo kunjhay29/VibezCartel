@@ -41,7 +41,7 @@ export default function JoinPage() {
   // If submitted, show a success message instead of the form.
   if (submitted) {
     return (
-      <div className="min-h-screen bg-onyx text-cream">
+      <div className="min-h-screen bg-onyx text-cream" style={{ paddingTop: "52px" }}>
         <Navbar />
         <section className="flex min-h-[70vh] flex-col items-center justify-center px-8 text-center">
           <SectionTag>APPLICATION RECEIVED</SectionTag>

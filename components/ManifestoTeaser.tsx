@@ -1,38 +1,42 @@
-// ManifestoTeaser.tsx — the section below the hero that previews the manifesto.
-// Features a large pull-quote, a signature piece of the VibezCartel design.
-
-import SectionTag from "./SectionTag";
-import AmberButton from "./AmberButton";
+import Link from "next/link";
 
 export default function ManifestoTeaser() {
+  const bodyText =
+    "We don't escape life. We escape the monotony of it. We are the Corporate Renegades, the Lens Archivists, the Sonic Alchemists — those who refuse to be one-dimensional.";
+
   return (
-    // py-32 = generous vertical breathing room. border-t = hairline divider on top.
-    <section className="border-t border-rule px-8 py-32 md:px-16">
-      <div className="mx-auto max-w-5xl">
-        {/* The little amber label */}
-        <SectionTag>THE MANIFESTO · ISSUE 001</SectionTag>
+    <section className="relative overflow-hidden bg-amber" style={{ padding: "72px 40px" }}>
+      <div
+        className="pointer-events-none absolute select-none font-display uppercase"
+        style={{ right: "-2%", bottom: "-18%", fontSize: "min(28vw,380px)", color: "rgba(0,0,0,.07)", lineHeight: "0.8" }}
+      >
+        RESET
+      </div>
 
-        {/* The big pull-quote. Cormorant (font-body) italic at large size reads
-            like an editorial statement. leading-tight keeps the lines close. */}
-        <blockquote className="mt-10 font-body text-4xl italic leading-tight text-cream md:text-6xl">
-          “We don’t escape life.
-          <br />
-          We escape the{" "}
-          <span className="text-amber not-italic">monotony</span> of it.”
-        </blockquote>
-
-        {/* A supporting paragraph in muted grey */}
-        <p className="mt-10 max-w-2xl font-body text-lg leading-relaxed text-grey md:text-xl">
-          VibezCartel is a movement for the ones who refuse to be
-          one-dimensional. The high-performers who still need the dancefloor.
-          The professionals who live for the function. We build experiences
-          worth remembering — and document the culture as we go.
+      <div className="relative z-[1]" style={{ maxWidth: "820px" }}>
+        <p className="mb-3 font-mono text-[0.5rem] uppercase tracking-[0.25em] text-black/45">
+          The Manifesto
         </p>
 
-        {/* CTA to read the full manifesto */}
-        <div className="mt-10">
-          <AmberButton label="READ THE FULL MANIFESTO" href="/manifesto" variant="ghost" />
-        </div>
+        <h2 className="font-display uppercase text-onyx" style={{ fontSize: "clamp(2rem,6vw,4.8rem)", lineHeight: "0.9", marginBottom: "18px" }}>
+          VibezCartel exists
+          <br />
+          to stage a prison break
+          <br />
+          for the soul.
+        </h2>
+
+        <p className="font-body text-[#2A2A2A]" style={{ fontSize: "clamp(.9rem,1.4vw,1.05rem)", lineHeight: "1.75", maxWidth: "540px", marginBottom: "24px" }}>
+          {bodyText}
+        </p>
+
+        <Link
+          href="/manifesto"
+          className="inline-flex items-center border px-[26px] py-[13px] font-mono text-[0.52rem] uppercase tracking-[0.22em] text-onyx transition-colors hover:bg-onyx hover:text-amber"
+          style={{ borderColor: "rgba(10,10,10,.3)" }}
+        >
+          Read in Full
+        </Link>
       </div>
     </section>
   );

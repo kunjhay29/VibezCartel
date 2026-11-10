@@ -18,7 +18,7 @@ const archiveItems = [
 
 export default function ArchivePage() {
   return (
-    <div className="min-h-screen bg-onyx text-cream">
+    <div className="min-h-screen bg-onyx text-cream" style={{ paddingTop: "52px" }}>
       <Navbar />
 
       <section className="px-8 pt-24 pb-12 md:px-16">

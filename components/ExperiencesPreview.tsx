@@ -1,56 +1,39 @@
-// ExperiencesPreview.tsx — a grid of experience cards for the home page.
-
-import SectionTag from "./SectionTag";
-import AmberButton from "./AmberButton";
+import Link from "next/link";
 import ExperienceCard from "./ExperienceCard";
 
-// HARDCODED data for now — later this comes from your database.
-// Notice: it's an array of objects, each matching ExperienceCardProps.
 const experiences = [
-  {
-    number: "001",
-    title: "Olumo Rock",
-    vibe: "ADVENTURE · DAY",
-    description: "A road trip to Abeokuta. Six of us, one rock, endless views.",
-    slug: "olumo-rock",
-  },
-  {
-    number: "002",
-    title: "Amapiano District",
-    vibe: "RAVE · NIGHT",
-    description: "Log drums until sunrise. The crew, deep in the frequency.",
-    slug: "amapiano-district",
-  },
-  {
-    number: "003",
-    title: "Raveoween",
-    vibe: "RAVE · NIGHT",
-    description: "Costumes, bass, and chaos. The night the cartel went feral.",
-    slug: "raveoween",
-  },
+  { number: "01", title: "Vibez Nights", sub: "The Underground Pulse", vibe: "Rhythmic · Industrial", image: "/vibez-nights.jpg", description: "Abandoned warehouses. Hidden rooftops. Afrohouse, Gqom, 3-Step, Amapiano, Mara." },
+  { number: "02", title: "Vibez Adventures", sub: "The Horizon Quest", vibe: "Earthy · Cinematic", image: "/vibez-adventures.jpg", description: "Idanre Hills at dawn. The Epe Mangroves. Untapped waterfalls. Nigeria as destination." },
+  { number: "03", title: "Vibez Escapes", sub: "The Coastal Reset", vibe: "Golden · Soulful", image: "/vibez-escapes.jpg", description: "Ilashe. Tarkwa Bay. Sunset House sets. Bonfire conversations with your tribe." },
+  { number: "04", title: "Vibez Sessions", sub: "The Sonic Laboratory", vibe: "Intimate · Precise", image: "/vibez-sessions.jpg", description: "Intimate. Invite-only. Live sets and discovery before the mainstream." },
+  { number: "05", title: "Vibez Connect", sub: "Logic & Magic Mixer", vibe: "Connected · High-Style", image: "/vibez-connect.jpg", description: "Rooftop brunches. Backend meets Bassline. The network that feels like belonging." },
 ];
 
 export default function ExperiencesPreview() {
   return (
-    <section className="border-t border-rule px-8 py-32 md:px-16">
-      <div className="mx-auto max-w-6xl">
-        {/* Header row: tag + title on the left, button on the right */}
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <SectionTag>THE EXPERIENCES · SELECTED</SectionTag>
-            <h2 className="mt-6 font-display text-5xl tracking-wide text-cream md:text-7xl">
-              WHAT WE&apos;VE LIVED
-            </h2>
-          </div>
-          <AmberButton label="SEE ALL" href="/experiences" variant="ghost" />
+    <section style={{ padding: "80px 0 0" }}>
+      <div className="flex flex-wrap items-end justify-between gap-[14px]" style={{ padding: "0 40px 36px" }}>
+        <div>
+          <p className="mb-[6px] font-mono text-[0.5rem] uppercase tracking-[0.25em] text-amber">
+            Five Resets
+          </p>
+          <h2 className="font-display uppercase tracking-[0.03em] text-cream" style={{ fontSize: "clamp(2rem,5vw,4.2rem)", lineHeight: "0.9" }}>
+            Experiences we curate.
+          </h2>
         </div>
+        <Link
+          href="/experiences"
+          className="inline-flex items-center border px-[26px] py-[13px] font-mono text-[0.52rem] uppercase tracking-[0.22em] text-cream transition-colors hover:bg-cream hover:text-onyx"
+          style={{ borderColor: "rgba(245,242,236,.3)" }}
+        >
+          View All
+        </Link>
+      </div>
 
-        {/* The grid. 1 column on mobile, 3 columns on md+ screens. gap = spacing. */}
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {/* Loop over the array, render an ExperienceCard for each.
-              The {...exp} "spreads" all of an experience's fields as props. */}
+      <div className="overflow-hidden" style={{ padding: "0 40px 40px" }}>
+        <div className="flex gap-[2px] overflow-x-auto" style={{ scrollbarWidth: "none" }}>
           {experiences.map((exp) => (
-            <ExperienceCard key={exp.slug} {...exp} />
+            <ExperienceCard key={exp.title} {...exp} />
           ))}
         </div>
       </div>

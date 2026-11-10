@@ -34,3 +34,21 @@ body {
   color: var(--color-cream);
   font-family: var(--font-body);
 }
+/* Amber button — shared hover micro-interaction (lift + amber glow).
+   Used by every solid-amber CTA across the site. */
+.btn-amber {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-amber);
+  color: var(--color-onyx);
+  transition: background-color .2s, transform .15s, box-shadow .2s;
+}
+.btn-amber:hover {
+  background-color: var(--color-amber-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 191, 0, .22);
+}
+.btn-amber:active {
+  transform: translateY(0);
+}

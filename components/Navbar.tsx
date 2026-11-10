@@ -1,11 +1,9 @@
-// Navbar.tsx — your site's top navigation bar.
-// This is a "component": a reusable piece of UI you can drop into any page.
+"use client";
 
-import Image from "next/image"; // Next's optimized image component (faster than <img>)
-import Link from "next/link";   // Next's link component for navigating between pages
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation"; // tells us the current URL path
 
-// The list of nav links. Keeping them in an array means we can loop over them
-// instead of copy-pasting the same markup 5 times. Add/remove links here later.
 const navLinks = [
   { label: "HOME", href: "/" },
   { label: "MANIFESTO", href: "/manifesto" },
@@ -15,35 +13,57 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname(); // e.g. "/experiences" or "/"
+
   return (
-    <header className="flex items-center justify-between border-b border-rule px-8 py-5">
-      {/* LEFT: logo + wordmark, links back to home */}
-      <Link href="/" className="flex items-center gap-3">
-        <Image src="/logo.svg" alt="VibezCartel" width={36} height={36} />
-        <span className="font-display text-xl tracking-wide text-cream">
+    <header
+      className="fixed left-0 right-0 top-0 z-[990] flex items-center justify-between px-10"
+      style={{
+        height: "52px",
+        background: "rgba(8,8,8,.94)",
+        borderBottom: "1px solid #1E1E1E",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+      }}
+    >
+      <Link href="/" className="flex items-center gap-2">
+        <Image src="/logo.svg" alt="VibezCartel" width={22} height={22} />
+        <span className="font-display text-base tracking-wide text-cream">
           VIBEZ<span className="text-amber">CARTEL</span>
         </span>
       </Link>
 
-      {/* CENTER: the nav links. We .map() over the array to render each one. */}
-      <nav className="hidden gap-8 md:flex">
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="font-mono text-xs tracking-[0.2em] text-grey transition-colors hover:text-amber"
-          >
-            {link.label}
-          </Link>
-        ))}
+      <nav className="hidden md:flex">
+        {navLinks.map((link) => {
+          // is THIS link the page we're currently on?
+          const isActive = pathname === link.href;
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="group relative px-4 py-[18px] font-mono text-[0.5rem] uppercase tracking-[0.22em] transition-colors"
+              style={{ color: isActive ? "#FFBF00" : "#808080" }}
+            >
+              {link.label}
+              {/* the amber underline: full width when active, grows on hover */}
+              <span
+                className="absolute bottom-0 left-4 right-4 origin-left transition-transform duration-300 group-hover:scale-x-100"
+                style={{
+                  height: "1px",
+                  background: "#FFBF00",
+                  transform: isActive ? "scaleX(1)" : "scaleX(0)",
+                }}
+              />
+            </Link>
+          );
+        })}
       </nav>
 
-      {/* RIGHT: the call-to-action button */}
       <Link
         href="/join"
-        className="bg-amber px-5 py-2 font-mono text-xs font-bold tracking-[0.15em] text-onyx transition-colors hover:bg-amber-dim"
+        className="bg-amber px-4 py-[7px] font-mono text-[0.5rem] font-bold uppercase tracking-[0.15em] text-onyx transition-colors hover:bg-amber-dim"
       >
-        JOIN THE CARTEL
+        Join the Cartel
       </Link>
     </header>
   );
